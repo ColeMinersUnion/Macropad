@@ -21,7 +21,8 @@ button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.UP
 
 #creating an encoder object
-encoder = rotaryio.IncrementalEncoder(board.GP14, board.GP15)
+#TODO: Double check this on schematic
+encoder = rotaryio.IncrementalEncoder(board.GP15, board.GP14)
 
 #setting up the keypoad and volume controls
 cc = ConsumerControl(usb_hid.devices)

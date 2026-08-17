@@ -1,4 +1,4 @@
-# My Macropad
+# Macropad
 ## Description
 
 This macropad was built with a Raspberry Ri Rico using [CircuitPython.](https://circuitpython.org/) The code in this repository includes volume control and a Three pseudo-Clipboards. Shown below are instructions as well as files to edit or order PCBs. 
@@ -12,11 +12,11 @@ For more information on the Mechanical Key breakout boards, as well as some of t
 For more information on the Rotary Encoder, specifically as a volume knob: [Adafruit Tutorial](https://learn.adafruit.com/trinket-usb-volume-knob/add-a-mute-button) \
 
 ## Shopping List
-
-## Wiring
-### Breadboard
+This PCB uses four main components. A [raspberry Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/), five [Neokey socket breakout boards](https://www.adafruit.com/product/4978), one [rotary encoder](https://www.adafruit.com/product/377) and my custom circuit board. 
 
 ### Printed Circuit Board
+The PCB files can be made from the KiCAD project found in the `PCB/` folder in this repository. 
+[An Image of a printed circuit board](/media/CompletedPCB.JPG)
 
 ## Code
 ### Library Downloads
@@ -137,5 +137,4 @@ Most of the heavy lifting for the keys was done during initialization.
         kboard.release_all()
 ```
 
-## Additional Features
 
