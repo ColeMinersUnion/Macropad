@@ -19,8 +19,11 @@ The PCB files can be made from the KiCAD project found in the `PCB/` folder in t
 [An Image of a printed circuit board](/media/CompletedPCB.JPG)
 
 ## Code
+### Circuitpython Bootloader
+In order to write and run code on the Raspberry Pi Pico, you'll need to download a .uf2 bootloader. Since we're using Circuit Python, you can find the bootloader on the [Circuit Python Website](https://circuitpython.org/board/raspberry_pi_pico/). To install, just drag the .uf2 file into the RP1-RP2 partition, and power cycle (unplug and plug back in) your microcontroller. 
+
 ### Library Downloads
-All of these libraries can be found on [pypi](https://pypi.org/)) for more information.\
+These libraries are easiest to download from the project bundle from this [adafruit demo](https://learn.adafruit.com/neokey-breakout/circuitpython-python#hid-keyboard-demo-3147320). Copy the lib folder with the neopixel file, and adafruit-hid folder into the microcontroller. 
 Libraries To Download\
 ├── adafruit-circuitpython-neopixel\
 └── adafruit-circuitpython-hid

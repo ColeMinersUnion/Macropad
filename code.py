@@ -21,7 +21,6 @@ button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.UP
 
 #creating an encoder object
-#TODO: Double check this on schematic
 encoder = rotaryio.IncrementalEncoder(board.GP15, board.GP14)
 
 #setting up the keypoad and volume controls
@@ -37,8 +36,10 @@ BRIGHTNESS = 0.5
 
 #labelling board pins
 PIXEL_PIN = board.GP28
+
+# Key 0 | Key 1 | rot
+# Key 2 | Key 3 | Key 4
 KEY_PINS = (board.GP27, board.GP26, board.GP22, board.GP21, board.GP20)
-KEY_VALUE = (Keycode.A, Keycode.B, Keycode.C, Keycode.D, Keycode.E)
 NUM_PIXELS = len(KEY_PINS)
 
 #creating the neopixel obj
@@ -53,6 +54,15 @@ keys = keypad.Keys(KEY_PINS, value_when_pressed=False, pull=True)
 time.sleep(1) #avoiding conflicts with OS
 kboard = Keyboard(usb_hid.devices)
 
+MEDIA_LAYER = ( lambda: kboard.press(Keycode.COMMAND, Keycode.C), 
+                lambda: kboard.press(Keycode.COMMAND, Keycode.V),
+                lambda: cc.send(ConsumerControlCode.SCAN_PREVIOUS_TRACK),
+                lambda: cc.send(ConsumerControlCode.PLAY_PAUSE),
+                lambda: cc.send(ConsumerControlCode.SCAN_NEXT_TRACK))
+
+COPY_LAYER = ()
+
+
 
 #running loop of code.
 #Runs continuously
@@ -64,10 +74,9 @@ while True:
     if event and event.pressed:
         #which key did I press?
         key_index = event.key_number
-        print(key_index)
         #on push
         pixels[key_index] = (0, 0, 255)
-        kboard.press(KEY_VALUE[key_index])
+        MEDIA_LAYER[key_index]()
         
     if event and event.released:
         pixels[event.key_number] =(0, 255, 0)
@@ -83,18 +92,17 @@ while True:
         for _ in range(position_change):
             #changing volume
             cc.send(ConsumerControlCode.VOLUME_DECREMENT)
-        print(current_position)
+        # print(current_position)
     elif position_change < 0:
         for _ in range(-position_change):
             cc.send(ConsumerControlCode.VOLUME_INCREMENT)
-        print(current_position)
+        # print(current_position)
     last_position = current_position
     
     #muting. 
-    if not button.value and button_state is None:
+    if not button.value and button_state == None:
         button_state = "pressed"
     if button.value and button_state == "pressed":
-        print("Button pressed.")
         cc.send(ConsumerControlCode.MUTE)
         button_state = None
     
